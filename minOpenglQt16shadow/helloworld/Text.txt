@@ -1,0 +1,26 @@
+
+
+#version 440
+layout(location=0)in vec3 position;
+layout(location=1)in vec2 aTexCoord1;;
+out vec4 vertexColor;
+out vec2 TexCoord1;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+void main(){
+    gl_Position=projection*view*model*vec4(position,1.0f);
+    TexCoord1 = aTexCoord1;
+}
+
+
+
+#version 440
+out vec4 FragColor;
+in vec2 TexCoord1;
+uniform sampler2D ourTexture1;
+uniform sampler2D ourTexture2;
+void main()
+{
+    FragColor = mix(texture(ourTexture1, TexCoord1),texture(ourTexture2, TexCoord1),0.3);
+}
